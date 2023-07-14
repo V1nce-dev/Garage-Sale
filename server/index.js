@@ -10,6 +10,7 @@ userDB()
 
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use("/api/", require("./routes/users"))
 
 app.listen(port, () => {
