@@ -1,72 +1,99 @@
 "use client";
-import styled from "styled-components";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid lightgray;
-  height: 30rem;
-  width: 25rem;
-  box-shadow:
-    0 4px 8px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+const theme = {
+  background: {
+    primary: "#f3f3f3",
+    default: "#fff",
+  },
+};
 
-const TextContainer = styled.div`
-  position: absolute;
-  top: 20px;
-  text-align: center;
-`;
-
-const Text = styled.h1`
-  font-size: ${({ $variant }) => ($variant === "small" ? "1rem" : "3rem")};
-  margin-bottom: ${({ $variant }) => ($variant === "signup" ? "0px" : "20px")};
-  font-weight: 100;
-`;
-
-const Span = styled.span`
-  color: blue;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${({ theme }) => theme.background.primary};
+    overflow: hidden;
   }
+`;
+
+const Outer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+const Container = styled.div`
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 25rem;
+  width: 25rem;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  background-color: ${({ theme }) => theme.background.default};
+`;
+
+const Signup = styled.h1`
+  font-size: large;
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+  margin: 1px;
+`;
+
+const Line = styled.hr`
+  border: 1px solid black;
+  width: 100%;
+  margin: 0%;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  margin-top: 5rem;
+  gap: 25px;
 `;
 
 const Input = styled.input`
-  border: 1px solid lightgray;
+  border: 2px solid black;
   border-radius: 3px;
   padding: 5px;
-  width: 15rem;
+  width: 20rem;
   font-size: medium;
 `;
 
-const Button = styled.button`
-  border: none;
-  border-radius: 6px;
+const SignupButton = styled.button`
+  border: 2px solid black;
+  border-radius: 3px;
   padding: 5px;
+  margin-top: 10px;
+  width: 21rem;
   font-size: medium;
   cursor: pointer;
   box-sizing: border-box;
   transition: 0.2s all ease-out;
-  background: #6834ec;
-  color: white;
+  background: white;
+  color: black;
   &:hover {
-    background: #8b5eeb;
+    background: #f3f3f3;
+  }
+`;
+
+const AccountButton = styled.button`
+  border: 2px solid black;
+  border-radius: 3px;
+  padding: 5px;
+  margin-top: 10px;
+  width: 100%;
+  font-size: medium;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: 0.2s all ease-out;
+  background: white;
+  color: black;
+  &:hover {
+    background: #f3f3f3;
   }
 `;
 
@@ -74,6 +101,8 @@ const Error = styled.h1`
   color: red;
   font-size: medium;
   font-weight: 100;
+  min-height: 2rem;
+  text-align: center;
 `;
 
 const RegisterForm = () => {
@@ -106,31 +135,42 @@ const RegisterForm = () => {
   };
 
   return (
-    <Container>
-      <TextContainer>
-        <Text $variant="signup">Sign Up</Text>
-        <Text $variant="small">
-          Already have an account{" "}
-          <Span onClick={() => router.push("/login")}>Login</Span>
-        </Text>
-      </TextContainer>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-        />
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <Button $variant="outline">Register</Button>
-      </Form>
-      {error && <Error>{error.message}</Error>}
-    </Container>
+    <ThemeProvider theme={theme}>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+        rel="stylesheet"
+      />
+      <GlobalStyle />
+      <Outer>
+        <div>
+          <Container>
+            <Signup>Sign Up</Signup>
+            <Line />
+            <Form onSubmit={handleSubmit}>
+              <Input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+              />
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+              />
+               <SignupButton type="submit" >
+            Sign up
+          </SignupButton>
+            </Form>
+            <Error>{error ? error.message : " "}</Error>
+          </Container>
+          <AccountButton onClick={() => router.push("/login")}>Have an account Login.</AccountButton>
+        </div>
+      </Outer>
+    </ThemeProvider>
   );
 };
 
