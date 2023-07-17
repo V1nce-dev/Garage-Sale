@@ -114,7 +114,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
+      const response = await axios.post(
         "http://localhost:8080/api/authenticate/",
         {
           username: username,
@@ -126,18 +126,29 @@ const LoginForm = () => {
           },
         }
       );
+
+      const token = response.data.token;
+      localStorage.setItem("token", token);
       setUsername("");
       setPassword("");
       router.push("/");
     } catch (error) {
-      setError(error.response.data);
+      if (error.response) {
+        setError(error.response.data);
+      } else {
+        setError({ message: "An error occurred while attempting to login." });
+      }
     }
   };
 
   return (
     <ThemeProvider theme={theme}>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin="true"
+      />
       <link
         href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
         rel="stylesheet"
@@ -161,13 +172,13 @@ const LoginForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
               />
-               <LoginButton type="submit" >
-                Login
-          </LoginButton>
+              <LoginButton type="submit">Login</LoginButton>
             </Form>
             <Error>{error ? error.message : " "}</Error>
           </Container>
-          <AccountButton onClick={() => router.push("/register")}>Dont Have an account Sign up.</AccountButton>
+          <AccountButton onClick={() => router.push("/register")}>
+            Dont Have an account Sign up.
+          </AccountButton>
         </div>
       </Outer>
     </ThemeProvider>

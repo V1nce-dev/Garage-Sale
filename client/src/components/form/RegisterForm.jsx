@@ -38,7 +38,7 @@ const Signup = styled.h1`
   font-size: large;
   font-family: "Press Start 2P", cursive;
   text-align: center;
-  margin: 1px;
+  margin: 0%;
 `;
 
 const Line = styled.hr`

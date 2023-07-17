@@ -1,10 +1,11 @@
 import LoginForm from "@/components/form/LoginForm";
+import PrivateRoute from "@/components/auth/PrivateRoute";
 
 const Page = () => {
   return (
-    <div>
+    <PrivateRoute>
       <LoginForm />
-    </div>
+    </PrivateRoute>
   );
 };
 
