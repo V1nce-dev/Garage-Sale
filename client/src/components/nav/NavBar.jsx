@@ -10,8 +10,6 @@ const theme = {
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    margin-left: 15rem;
-    margin-right: 15rem;
     background-color: ${({ theme }) => theme.background.primary};
     font-family: 'Ubuntu', sans-serif;
 
@@ -36,6 +34,8 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   padding-top: 20px;
+  margin-left: 15rem;
+  margin-right: 15rem;
 `;
 
 const Home = styled.a`
@@ -101,7 +101,6 @@ const Button = styled.a`
 `;
 
 const IsnotLoggedIn = styled(Button)``;
-
 const IsLoggedIn = styled(Button)``;
 
 const NavBar = () => {
