@@ -2,13 +2,14 @@ const Post = require("../model/postmodel");
 
 const post = async (req, res) => {
     try {
-        const { name, price, description, image } = req.body;
+        const { name, price, description } = req.body;
+        const image = req.file;
 
         if (!name || !price) {
             return res.status(500).json({ message: "Name and Price are required" });
         }
 
-        const post = new Post({ name, price, description, image });
+        const post = new Post({ name, price, description, image: image.path });
         await post.save();
 
         return res
@@ -18,6 +19,7 @@ const post = async (req, res) => {
                 name: name,
                 price: price,
                 description: description,
+                image: image.path,
             });
     } catch (error) {
         return res
@@ -25,6 +27,7 @@ const post = async (req, res) => {
             .json({ message: "There has been an error", error: error.message });
     }
 };
+
 
 module.exports = {
     post,
