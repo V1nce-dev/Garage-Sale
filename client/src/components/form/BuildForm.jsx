@@ -1,34 +1,48 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import axios from "axios";
 
-const SellForm = () => {
+const BuildForm = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [image, setImage] = useState();
+  const [products, setProducts] = useState([]);
 
-     const handleImageChange = (e) => {
+  const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("description", description);
+      formData.append("image", image);
+
       const response = await axios.post(
         "http://localhost:8080/api/post/",
-        {
-          name: name,
-          price: price,
-          description: description,
-          image: image,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        formData
       );
+
+      const newProduct = {
+        id: response.data.id,
+        name,
+        price,
+        description,
+        image: URL.createObjectURL(image),
+        slug: name.toLowerCase().split(" ").join("-"),
+      };
+
+      setProducts([...products, newProduct]);
+
+      setName("");
+      setPrice("");
+      setDescription("");
+      setImage(null);
     } catch (error) {
       console.log(error.response.data);
     }
@@ -55,14 +69,23 @@ const SellForm = () => {
           onChange={(e) => setDescription(e.target.value)}
           placeholder="description"
         />
-        <input 
-          type="file"
-          onChange={handleImageChange}
-        />
+        <input type="file" onChange={handleImageChange} />
         <button>do shit</button>
       </form>
+
+      <div>
+        {products.map((product) => (
+          <div key={product}>
+            <Link href={`/dashboard/build/${product.slug}`}>
+              <div>
+                {product.name} - {product.price}
+              </div>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default SellForm;
+export default BuildForm;
