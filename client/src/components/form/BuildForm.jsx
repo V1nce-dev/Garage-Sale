@@ -29,12 +29,11 @@ const BuildForm = () => {
       );
 
       const newProduct = {
-        id: response.data.id,
+        _id: response.data.id,
         name,
         price,
         description,
         image: URL.createObjectURL(image),
-        slug: name.toLowerCase().split(" ").join("-"),
       };
 
       setProducts([...products, newProduct]);
@@ -75,10 +74,10 @@ const BuildForm = () => {
 
       <div>
         {products.map((product) => (
-          <div key={product}>
-            <Link href={`/dashboard/build/${product.slug}`}>
+          <div key={product._id}>
+            <Link href={`/dashboard/build/${product._id}`}>
               <div>
-                {product.name} - {product.price}
+                {product.name} - {product.description}
               </div>
             </Link>
           </div>
