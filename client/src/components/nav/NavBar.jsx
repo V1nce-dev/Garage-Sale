@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     background-color: ${({ theme }) => theme.background.primary};
-    font-family: 'Ubuntu', sans-serif;
+    font-family: sans-serif;
 
   }
 `;
@@ -163,7 +163,7 @@ const NavBar = () => {
           <div>Garage Sale</div>
         </Home>
         <Product href="/product">Products</Product>
-        <Organize href="/dashboard/">Organize Your Own</Organize>
+        <Organize href="/build/">Organize Your Own</Organize>
         {isLoggedIn ? (
           <IsLoggedIn href="/login" onClick={handleLogout}>
             Logout

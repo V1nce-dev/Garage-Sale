@@ -2,6 +2,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import styled from "styled-components";
+
+const Input = styled.input`
+  
+`
 
 const BuildForm = () => {
   const [name, setName] = useState("");
@@ -75,7 +80,7 @@ const BuildForm = () => {
       <div>
         {products.map((product) => (
           <div key={product._id}>
-            <Link href={`/dashboard/build/${product._id}`}>
+            <Link href={`/build/${product._id}`}>
               <div>
                 {product.name} - {product.description}
               </div>
