@@ -1,12 +1,14 @@
 import StyledComponentsRegistry from "./registry";
+import NavBar from "@/components/nav/NavBar";
 
 export default function RootLayout({ children }) {
-
+  
   return (
     <html>
       <body>
         <StyledComponentsRegistry>
-            {children}
+          <NavBar/>
+          {children}
         </StyledComponentsRegistry>
       </body>
     </html>

@@ -11,6 +11,6 @@ const {
 router.get("/image/:id", getImageById);
 router.post("/post", upload.single("image"), post);
 router.get("/post/:id", getPostById);
-router.delete("/post/", deletePostById);
+router.delete("/post/:id", deletePostById);
 
 module.exports = router;
