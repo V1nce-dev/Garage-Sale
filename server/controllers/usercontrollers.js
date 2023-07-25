@@ -39,25 +39,19 @@ const authenticate = async (req, res) => {
 
         const user = await User.findOne({ username });
         if (!user) {
-            return res
-                .status(401)
-                .json({ message: "Authentication failed. User not found." });
+            return res.status(401).json({ message: "Authentication failed. User not found." });
         }
 
         const isPasswordValid = await user.comparePassword(password);
         if (!isPasswordValid) {
-            return res
-                .status(401)
-                .json({ message: "Authentication failed. Invalid password." });
+            return res.status(401).json({ message: "Authentication failed. Invalid password." });
         }
 
         const token = createToken(user._id);
 
         return res.status(200).json({ token });
     } catch (error) {
-        return res
-            .status(500)
-            .json({ message: "Error in authentication", error: error.message });
+        return res.status(500).json({ message: "Error in authentication", error: error.message });
     }
 };
 

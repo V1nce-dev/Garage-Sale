@@ -162,9 +162,16 @@ const BuildForm = () => {
       formData.append("image", image);
       formData.append("creator", window.localStorage.getItem("userId"));
 
+      const token = window.localStorage.getItem("token");
+
       const response = await axios.post(
         "http://localhost:8080/api/post",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       const newProduct = {
@@ -188,7 +195,13 @@ const BuildForm = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/post/${id}`);
+      const token = window.localStorage.getItem("token");
+
+      await axios.delete(`http://localhost:8080/api/post/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setProducts((prevProducts) =>
         prevProducts.filter((product) => product._id !== id)
