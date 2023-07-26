@@ -1,4 +1,3 @@
-"use client";
 import HomePage from "@/components/home/home";
 
 const Page = () => {

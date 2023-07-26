@@ -1,12 +1,11 @@
-"use client"
 import LoginForm from "@/components/form/LoginForm";
-import PrivateRoute from "@/components/auth/PrivateRoute";
+import PublicRoute from "@/components/auth/PublicRoute";
 
 const Page = () => {
   return (
-    <PrivateRoute>
+    <PublicRoute>
       <LoginForm />
-    </PrivateRoute>
+    </PublicRoute>
   );
 };
 

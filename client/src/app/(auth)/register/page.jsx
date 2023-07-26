@@ -1,12 +1,11 @@
-"use client"
 import RegisterForm from "@/components/form/RegisterForm";
-import PrivateRoute from "@/components/auth/PrivateRoute";
+import PublicRoute from "@/components/auth/PublicRoute";
 
 const Page = () => {
   return (
-      <PrivateRoute>
+      <PublicRoute>
       <RegisterForm />
-      </PrivateRoute>
+      </PublicRoute>
   );
 };
 

@@ -19,7 +19,12 @@ const PostSchema = new mongoose.Schema({
     },
     image: {
         data: Buffer,
-        contentType: String
+        contentType: String,
+    },
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
     },
 });
 

@@ -118,6 +118,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("products");
     setIsLoggedIn(false);
   };
 

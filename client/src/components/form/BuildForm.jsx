@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
@@ -141,16 +141,25 @@ const BuildForm = () => {
 
   useEffect(() => {
     const loadProducts = async () => {
-      const products = JSON.parse(localStorage.getItem("products")) || [];
-      setProducts(products);
+      const token = window.localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/posts",
+          config
+        );
+        setProducts(response.data);
+      } catch (error) {
+        setError(error.response.data.message);
+      }
     };
 
     loadProducts();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(products));
-  }, [products]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -164,7 +173,12 @@ const BuildForm = () => {
 
       const response = await axios.post(
         "http://localhost:8080/api/post",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        }
       );
 
       const newProduct = {
@@ -188,8 +202,13 @@ const BuildForm = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/post/${id}`);
-
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await axios.delete(`http://localhost:8080/api/post/${id}`, config);
       setProducts((prevProducts) =>
         prevProducts.filter((product) => product._id !== id)
       );
