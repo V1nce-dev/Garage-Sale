@@ -171,12 +171,18 @@ const BuildForm = () => {
       formData.append("image", image);
       formData.append("creator", window.localStorage.getItem("userId"));
 
+      const token = window.localStorage.getItem("token");
+
       const response = await axios.post(
         "http://localhost:8080/api/post",
         formData,
         {
           headers: {
+<<<<<<< HEAD
             Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+=======
+            Authorization: `Bearer ${token}`,
+>>>>>>> 822612f8300d34a3b0daf71223259eb1b0c56d93
           },
         }
       );
@@ -202,6 +208,7 @@ const BuildForm = () => {
 
   const handleDelete = async (id) => {
     try {
+<<<<<<< HEAD
       const token = localStorage.getItem("token");
       const config = {
         headers: {
@@ -209,6 +216,16 @@ const BuildForm = () => {
         },
       };
       await axios.delete(`http://localhost:8080/api/post/${id}`, config);
+=======
+      const token = window.localStorage.getItem("token");
+
+      await axios.delete(`http://localhost:8080/api/post/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+>>>>>>> 822612f8300d34a3b0daf71223259eb1b0c56d93
       setProducts((prevProducts) =>
         prevProducts.filter((product) => product._id !== id)
       );
