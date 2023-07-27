@@ -6,16 +6,16 @@ const {
     post,
     getPostsByUser,
     getPostById,
+    getAllPosts,
     deletePostById,
 } = require("../controllers/postcontrollers");
 const Verify = require("../middleware/auth")
 
-router.use(Verify)
-
-router.get("/image/:id", getImageById);
-router.get("/post/:id", getPostById);
-router.get("/posts", getPostsByUser);
-router.post("/post", upload.single("image"), post);
-router.delete("/post/:id", deletePostById);
+router.get("/products/post/", getAllPosts)
+router.get("/image/:id", Verify, getImageById);
+router.get("/post/:id", Verify, getPostById);
+router.get("/post", Verify, getPostsByUser);
+router.post("/post", Verify, upload.single("image"), post);
+router.delete("/post/:id", Verify, deletePostById);
 
 module.exports = router;

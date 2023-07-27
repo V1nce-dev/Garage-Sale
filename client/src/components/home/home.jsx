@@ -162,6 +162,8 @@ const CreateHeader = styled.h1`
 `;
 
 const CreateButton = styled.a`
+  color: black;
+  text-decoration: none;
   border-radius: 5px;
   padding: 10px;
   background: white;
@@ -236,7 +238,7 @@ const HomePage = () => {
       <CreateContainer>
         <Create>
           <CreateHeader>Interested in listing your own products?</CreateHeader>
-          <CreateButton>Organize Your Own</CreateButton>
+          <CreateButton href="/build">Organize Your Own</CreateButton>
         </Create>
       </CreateContainer>
     </div>

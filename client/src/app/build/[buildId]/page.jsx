@@ -1,6 +1,65 @@
 "use client";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  margin-top: 5rem;
+  margin-left: 15rem;
+  margin-right: 15rem;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid #ccc;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin-bottom: 2rem;
+  width: 100vh;
+`;
+
+const TextContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+const Text = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 0.5em;
+`;
+
+const Image = styled.img`
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 5px;
+  width: 20rem;
+  height: 20rem;
+  object-fit: cover;
+`;
+
+const LoadingText = styled.p`
+  font-size: 1.5em;
+  color: #999;
+`;
 
 const Page = ({ params }) => {
   const [data, setData] = useState(null);
@@ -43,19 +102,21 @@ const Page = ({ params }) => {
   }, [params.buildId]);
 
   return (
-    <div>
+    <Container>
+      <Title>Details:</Title>
       {isError || !data ? (
-        <p>Loading...</p>
+        <LoadingText>Loading...</LoadingText>
       ) : (
-        <>
-          <h1>name: {data.name}</h1>
-          <h1>price: {data.price}</h1>
-          <h1>description: {data.description}</h1>
-          {data.image && <img src={data.image} alt={data.name} />}
-        </>
+        <ContentContainer>
+          <TextContent>
+            <Text>Name: {data.name}</Text>
+            <Text>Price: {data.price}</Text>
+            <Text>Description: {data.description}</Text>
+          </TextContent>
+          {data.image && <Image src={data.image} alt={data.name} />}
+        </ContentContainer>
       )}
-    </div>
+    </Container>
   );
 };
-
 export default Page;

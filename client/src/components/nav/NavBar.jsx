@@ -164,14 +164,14 @@ const NavBar = () => {
           </HomeIcon>
           <div>Garage Sale</div>
         </Home>
-        <Product href="/product">Products</Product>
+        <Product href="/products/">Products</Product>
         <Organize href="/build/">Organize Your Own</Organize>
         {isLoggedIn ? (
-          <IsLoggedIn href="/login" onClick={handleLogout}>
+          <IsLoggedIn href="/login/" onClick={handleLogout}>
             Logout
           </IsLoggedIn>
         ) : (
-          <IsnotLoggedIn href="/login">Login</IsnotLoggedIn>
+          <IsnotLoggedIn href="/login/">Login</IsnotLoggedIn>
         )}
       </Nav>
     </ThemeProvider>
