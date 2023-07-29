@@ -79,19 +79,6 @@ const Page = ({ params }) => {
         });
 
         setData(response.data);
-
-        const imageUrl = `http://localhost:8080/api/image/${response.data._id}`;
-        const imageResponse = await axios.get(imageUrl, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          responseType: "blob",
-        });
-
-        const blob = imageResponse.data;
-        const imageLocalUrl = URL.createObjectURL(blob);
-
-        setData((prevData) => ({ ...prevData, image: imageLocalUrl }));
       } catch (error) {
         console.error("Failed to fetch data:", error);
         setIsError(true);
@@ -113,7 +100,12 @@ const Page = ({ params }) => {
             <Text>Price: {data.price}</Text>
             <Text>Description: {data.description}</Text>
           </TextContent>
-          {data.image && <Image src={data.image} alt={data.name} />}
+          {data.imagePath && (
+            <Image
+              src={`http://localhost:8080/${data.imagePath}`}
+              alt={data.name}
+            />
+          )}
         </ContentContainer>
       )}
     </Container>

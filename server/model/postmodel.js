@@ -17,10 +17,7 @@ const PostSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 300,
     },
-    image: {
-        data: Buffer,
-        contentType: String,
-    },
+    imagePath: String,
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

@@ -11,6 +11,7 @@ userDB();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 app.use("/api/", require("./routes/users"));
 app.use("/api/", require("./routes/post"));

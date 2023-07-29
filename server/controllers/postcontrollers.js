@@ -32,33 +32,6 @@ const upload = multer({
     fileFilter: fileFilter,
 });
 
-const getImageById = async (req, res) => {
-    try {
-        if (!req.headers.authorization) {
-            return res
-                .status(401)
-                .json({ message: "No authorization header provided." });
-        }
-
-        const post = await Post.findById(req.params.id);
-        if (!post || !post.image) {
-            return res.status(404).json({ message: "Image not found" });
-        }
-
-        if (req.user._id.toString() !== post.creator.toString()) {
-            return res
-                .status(403)
-                .json({ message: "You do not have permission to view this image" });
-        }
-
-        res.contentType(post.image.contentType);
-        res.send(post.image.data);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server error" });
-    }
-};
-
 const getPostById = async (req, res) => {
     try {
         if (!req.headers.authorization) {
@@ -70,6 +43,13 @@ const getPostById = async (req, res) => {
         const post = await Post.findById(req.params.id);
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
+        }
+
+        if (req.headers.accept === "image/*") {
+            if (!post.imagePath) {
+                return res.status(404).json({ message: "Image not found" });
+            }
+            return res.sendFile(path.resolve(post.imagePath));
         }
 
         if (req.user._id.toString() !== post.creator.toString()) {
@@ -109,7 +89,9 @@ const getAllPosts = async (req, res) => {
         return res.status(200).json(posts);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Server error", error: error.message });
+        return res
+            .status(500)
+            .json({ message: "Server error", error: error.message });
     }
 };
 
@@ -117,16 +99,13 @@ const post = async (req, res) => {
     try {
         const { name, price, description } = req.body;
         const creator = req.user._id;
-        const image = {
-            data: fs.readFileSync(req.file.path),
-            contentType: req.file.mimetype,
-        };
+        const imagePath = req.file.path;
 
         if (!name || !price) {
             return res.status(400).json({ message: "Name and Price are required" });
         }
 
-        const post = new Post({ name, price, description, image, creator });
+        const post = new Post({ name, price, description, imagePath, creator });
         await post.save();
 
         return res.status(200).json({
@@ -135,7 +114,7 @@ const post = async (req, res) => {
             name: name,
             price: price,
             description: description,
-            image: image,
+            imagePath: imagePath,
             creator: creator,
         });
     } catch (error) {
@@ -161,6 +140,8 @@ const deletePostById = async (req, res) => {
                 .json({ message: "You do not have permission to delete this post" });
         }
 
+        fs.unlinkSync(post.imagePath);
+
         await Post.findByIdAndDelete(req.params.id);
 
         return res.status(200).json({ message: "Post has been deleted" });
@@ -172,7 +153,6 @@ const deletePostById = async (req, res) => {
 
 module.exports = {
     upload,
-    getImageById,
     getPostsByUser,
     getPostById,
     getAllPosts,

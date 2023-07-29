@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const {
-    getImageById,
     upload,
     post,
     getPostsByUser,
@@ -9,10 +8,9 @@ const {
     getAllPosts,
     deletePostById,
 } = require("../controllers/postcontrollers");
-const Verify = require("../middleware/auth")
+const Verify = require("../middleware/auth");
 
-router.get("/products/post/", getAllPosts)
-router.get("/image/:id", Verify, getImageById);
+router.get("/products/post/", getAllPosts);
 router.get("/post/:id", Verify, getPostById);
 router.get("/post", Verify, getPostsByUser);
 router.post("/post", Verify, upload.single("image"), post);
