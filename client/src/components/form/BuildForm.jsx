@@ -24,7 +24,7 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  border: 1px solid lightgray;
+  border: 1px solid black;
   padding: 0.5rem;
   margin-bottom: 1rem;
   font-size: 1rem;
@@ -41,7 +41,7 @@ const Input = styled.input`
   }
 
   &[type="file"] {
-    border: 1px solid gray;
+    border: 1px solid black;
     background-color: #f8f8f8;
     padding: 0.5rem;
     font-size: 0.9rem;
@@ -56,7 +56,7 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-  border: 1px solid lightgray;
+  border: 1px solid black;
   padding: 0.5rem;
   margin-bottom: 1rem;
   font-size: 1rem;
@@ -96,7 +96,7 @@ const ProductList = styled.div`
 const ProductItem = styled.div`
   flex: 1 0 200px;
   padding: 1rem;
-  border: 1px solid lightgray;
+  border: 1px solid black;
   border-radius: 0.25rem;
   margin-bottom: 1rem;
   cursor: pointer;

@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     background-color: ${({ theme }) => theme.background.primary};
-    font-family: sans-serif;
+    font-family: Ubuntu;
 
   }
 `;
@@ -45,6 +45,7 @@ const Home = styled.a`
   text-decoration: none;
   font-size: larger;
   font-weight: 900;
+  font-family: sans-serif;
   align-items: center;
 `;
 

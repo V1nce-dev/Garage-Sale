@@ -8,52 +8,46 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.1);
-  background-color: #f8f9fa;
   margin-top: 5rem;
   margin-left: 15rem;
   margin-right: 15rem;
 `;
 
-const Title = styled.h1`
-  font-size: 2.5em;
-  text-align: center;
-  margin-bottom: 2rem;
-`;
-
-const ContentContainer = styled.div`
+const ImageContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  border: 1px solid #ccc;
-  padding: 2rem;
+  border: 1px solid black;
   border-radius: 10px;
   background-color: #ffffff;
   margin-bottom: 2rem;
-  width: 100vh;
+  width: 60rem;
+  height: 30rem;
 `;
 
 const TextContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  width: 60rem;
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
 const Text = styled.h2`
-  font-size: 2rem;
-  margin-bottom: 0.5em;
+  font-size: 1rem;
+  margin-bottom: 0.1em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin: 0;
+  padding: 10px;
 `;
 
 const Image = styled.img`
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 5px;
-  width: 20rem;
-  height: 20rem;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  border-radius: 10px;
 `;
 
 const LoadingText = styled.p`
@@ -90,23 +84,24 @@ const Page = ({ params }) => {
 
   return (
     <Container>
-      <Title>Details:</Title>
       {isError || !data ? (
         <LoadingText>Loading...</LoadingText>
       ) : (
-        <ContentContainer>
+        <>
+          <ImageContainer>
+            {data.imagePath && (
+              <Image
+                src={`http://localhost:8080/${data.imagePath}`}
+                alt={data.name}
+              />
+            )}
+          </ImageContainer>
           <TextContent>
             <Text>Name: {data.name}</Text>
             <Text>Price: {data.price}</Text>
             <Text>Description: {data.description}</Text>
           </TextContent>
-          {data.imagePath && (
-            <Image
-              src={`http://localhost:8080/${data.imagePath}`}
-              alt={data.name}
-            />
-          )}
-        </ContentContainer>
+        </>
       )}
     </Container>
   );
