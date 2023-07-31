@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -19,6 +20,7 @@ const ProductContainer = styled.div`
   overflow: hidden;
   border-radius: 5px;
   transition: transform 0.3s ease;
+  cursor: pointer;
   &:hover {
     transform: scale(1.03);
   }
@@ -95,6 +97,15 @@ const LoadingText = styled.p`
 
 const Page = () => {
   const [data, setData] = useState(null);
+  const router = useRouter();
+
+  const navigateToProduct = (postId) => {
+    router.push(`/products/${postId}`);
+  };
+
+  const addToCart = (e, post) => {
+    e.stopPropagation();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,21 +120,25 @@ const Page = () => {
     <Container>
       {data ? (
         data.map((post, index) => (
-          <ProductContainer key={index}>
-            <Image
-              src={`http://localhost:8080/${post.imagePath}`}
-              alt={post.name}
-            />
-            <Overlay>
-              <DetailsContainer>
-                <Name>{post.name}</Name>
-                <Price>{post.price}</Price>
-              </DetailsContainer>
-              <ButtonContainer>
-                <Button>Add to cart</Button>
-              </ButtonContainer>
-            </Overlay>
-          </ProductContainer>
+          <div key={index} onClick={() => navigateToProduct(post._id)}>
+            <ProductContainer>
+              <Image
+                src={`http://localhost:8080/${post.imagePath}`}
+                alt={post.name}
+              />
+              <Overlay>
+                <DetailsContainer>
+                  <Name>{post.name}</Name>
+                  <Price>${post.price}</Price>
+                </DetailsContainer>
+                <ButtonContainer>
+                  <Button onClick={(e) => addToCart(e, post)}>
+                    Add to cart
+                  </Button>
+                </ButtonContainer>
+              </Overlay>
+            </ProductContainer>
+          </div>
         ))
       ) : (
         <LoadingText>Loading...</LoadingText>

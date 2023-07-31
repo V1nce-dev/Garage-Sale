@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
@@ -150,7 +150,7 @@ const BuildForm = () => {
       try {
         const response = await axios.get(
           "http://localhost:8080/api/post",
-          config
+          config,
         );
         setProducts(response.data);
       } catch (error) {
@@ -180,7 +180,7 @@ const BuildForm = () => {
           headers: {
             Authorization: `Bearer ${window.localStorage.getItem("token")}`,
           },
-        }
+        },
       );
 
       const newProduct = {
@@ -212,7 +212,7 @@ const BuildForm = () => {
       };
       await axios.delete(`http://localhost:8080/api/post/${id}`, config);
       setProducts((prevProducts) =>
-        prevProducts.filter((product) => product._id !== id)
+        prevProducts.filter((product) => product._id !== id),
       );
     } catch (error) {
       setError(error.response.data.message);
@@ -252,7 +252,7 @@ const BuildForm = () => {
           <div key={product._id}>
             <Link href={`/build/${product._id}`}>
               <ProductItem>
-                {product.name} - {product.description}
+                {product.name} - ${product.price}
               </ProductItem>
             </Link>
             <DeleteButton onClick={() => handleDelete(product._id)}>

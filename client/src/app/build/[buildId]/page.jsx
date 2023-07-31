@@ -74,7 +74,6 @@ const Page = ({ params }) => {
 
         setData(response.data);
       } catch (error) {
-        console.error("Failed to fetch data:", error);
         setIsError(true);
       }
     };
@@ -98,7 +97,7 @@ const Page = ({ params }) => {
           </ImageContainer>
           <TextContent>
             <Text>Name: {data.name}</Text>
-            <Text>Price: {data.price}</Text>
+            <Text>Price: ${data.price}</Text>
             <Text>Description: {data.description}</Text>
           </TextContent>
         </>
