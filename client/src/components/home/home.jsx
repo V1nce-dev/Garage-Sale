@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -62,12 +62,6 @@ const Text = styled.h6`
   color: #909296;
 `;
 
-const PreviewImage = styled.div`
-  border: 2px solid black;
-  border-radius: 5px;
-  width: 100%;
-`;
-
 const CategoryContainer = styled.div`
   display: flex;
   width: 100%;
@@ -86,6 +80,7 @@ const Category = styled.a`
   box-shadow: 0px 0px 3px 1px gray;
   margin: auto;
   transition: 0.2s all ease-out;
+  text-decoration: none;
   &:hover {
     background: lightgray;
   }
@@ -118,6 +113,7 @@ const CategoryHeader = styled.h1`
   margin-left: 15px;
   font-size: larger;
   font-family: sans-serif;
+  color: black;
 `;
 
 const FashionHeader = styled(CategoryHeader)``;
@@ -190,11 +186,10 @@ const HomePage = () => {
           <Text>
             Buy and sell products made from others in your neighborhood
           </Text>
-          <PreviewImage>PlaceHolder</PreviewImage>
         </HeaderContainer>
       </Container>
       <CategoryContainer>
-        <Fashion>
+        <Fashion href="/products">
           <FashionSvg viewBox="0 0 48 48" fill="#000000">
             <path d="M40.7,20.4l-4-3.9V43H11.3V16.5l-4,3.9L1,14.1,9.2,5H19A5.2,5.2,0,0,0,29,5h9.8L47,14.1Z"></path>{" "}
           </FashionSvg>
@@ -203,7 +198,7 @@ const HomePage = () => {
             Explore, buy, and sell a diverse range of fashion-forward products.
           </FashionText>
         </Fashion>
-        <Electronics>
+        <Electronics href="/products">
           <ElectronicSvg viewBox="0 0 48 48">
             <path d="M0 0h48v48H0z" fill="none"></path>{" "}
             <path d="M8,40h32c2.2,0,4-1.8,4-4v-2c0-2.2-1.8-4-4-4V12c0-2.2-1.8-4-4-4H12c-2.2,0-4,1.8-4,4v18c-2.2,0-4,1.8-4,4v2 C4,38.2,5.8,40,8,40z M8,34h4h24h4v2H8V34z"></path>{" "}
@@ -214,7 +209,7 @@ const HomePage = () => {
             innovative gadgets and devices.
           </ElectronicsText>
         </Electronics>
-        <Accessories>
+        <Accessories href="/products">
           <AccessorieSvg viewBox="0 0 24 24">
             <path d="M18,12a6,6,0,1,0-6,6A6,6,0,0,0,18,12Zm-3.293,2.707a1,1,0,0,1-1.414,0l-2-2A1,1,0,0,1,11,12V10a1,1,0,0,1,2,0v1.586l1.707,1.707A1,1,0,0,1,14.707,14.707ZM15,2a1,1,0,0,1,1,1V5.082a7.935,7.935,0,0,0-8,0V3A1,1,0,0,1,9,2ZM12,20a7.94,7.94,0,0,0,4-1.082V21a1,1,0,0,1-1,1H9a1,1,0,0,1-1-1V18.918A7.94,7.94,0,0,0,12,20Z"></path>
           </AccessorieSvg>
@@ -224,7 +219,7 @@ const HomePage = () => {
             collection of accessories.
           </AccessoriesText>
         </Accessories>
-        <Furniture>
+        <Furniture href="/products">
           <FurnitureSvg viewBox="-1.5 0 19 19">
             <path d="M2.461 7.02a1.61 1.61 0 0 1 1.61 1.611v2.456h7.857V8.63a1.61 1.61 0 1 1 1.988 1.566v4.634a.476.476 0 0 1-.475.475H2.559a.476.476 0 0 1-.475-.475v-4.634A1.61 1.61 0 0 1 2.46 7.02zm1.059-.894a2.68 2.68 0 0 0-.227-.084V4.669A1.111 1.111 0 0 1 4.4 3.56h7.198a1.111 1.111 0 0 1 1.108 1.109v1.373a2.679 2.679 0 0 0-.227.084 2.717 2.717 0 0 0-1.66 2.505v1.347H5.18V8.631a2.72 2.72 0 0 0-1.66-2.505z"></path>
           </FurnitureSvg>

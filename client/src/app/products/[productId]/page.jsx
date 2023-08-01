@@ -1,56 +1,75 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 const Container = styled.div`
   display: flex;
   margin-top: 5rem;
-  margin-right: 15rem;
   margin-left: 15rem;
-  justify-content: space-around;
-  align-items: flex-start;
+  margin-right: 15rem;
 `;
 
-const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin-bottom: 2rem;
-  width: 45rem;
-  height: 45rem;
+const GlobalStyled = createGlobalStyle`
+  h1 {
+    font-family: sans-serif;
+  }
 `;
 
 const Image = styled.img`
-  width: auto;
-  height: 100%;
-  object-fit: cover;
+  width: 45rem;
+  height: 45rem;
   border-radius: 10px;
+  object-fit: cover;
 `;
 
-const TextContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+const ProductContent = styled.div`
+  padding-left: 5rem;
+  width: 100%;
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: lighter;
-  margin-bottom: 1rem;
+  font-size: 28px;
+  margin-bottom: 10px;
+  word-break: break-word;
+`;
+
+const Line = styled.hr`
+  border: 0;
+  height: 1px;
+  background: #ddd;
 `;
 
 const Price = styled.h1`
-  font-size: 1.2rem;
-  font-weight: 600;
-  font-family: sans-serif;
-  margin: 0.5rem 0;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px 0;
 `;
 
-const Description = styled.p``;
+const Button = styled.button`
+  padding: 12px 25px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  transition: 0.2s all ease-out;
+
+  &:hover {
+    background: #f4f7fa;
+  }
+`;
+
+const DescriptionContainer = styled.div`
+  margin-top: 20px;
+`;
+
+const Description = styled.h1`
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: justify;
+  word-break: break-word;
+`;
 
 const Page = ({ params }) => {
   const [post, setPost] = useState(null);
@@ -78,17 +97,18 @@ const Page = ({ params }) => {
 
   return (
     <Container>
-      <ImageContainer>
-        <Image
-          src={`http://localhost:8080/${post.imagePath}`}
-          alt={post.name}
-        />
-      </ImageContainer>
-      <TextContent>
+      <GlobalStyled />
+      <Image src={`http://localhost:8080/${post.imagePath}`} alt={post.name} />
+      <ProductContent>
         <Title>{post.name}</Title>
-        <Price>${post.price}</Price>
-        <Description>{post.description}</Description>
-      </TextContent>
+        <Line />
+        <Price>Price: ${post.price}</Price>
+        <Button>Add to Cart</Button>
+        <Line />
+        <DescriptionContainer>
+          <Description>{post.description}</Description>
+        </DescriptionContainer>
+      </ProductContent>
     </Container>
   );
 };
